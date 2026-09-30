@@ -1,0 +1,3 @@
+harness/local.json
+__pycache__/
+*.pyc
