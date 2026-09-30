@@ -1,13 +1,27 @@
 @harness/CLAUDE.md
 
-# Working in the harness repo itself
+# ImmersiveReloading — mod context for the agent
 
-This repo is the upstream of `harness/` for every Stalker 2 mod repo (see `harness/docs/harness-workflow.md`). There is
-no mod here and no `mod.json`; tools that need a mod take `-Mod`.
+Purpose: Sprint and reload at the same time, with an optional reload-speed setting.
 
-- Commit and push harness changes directly here, then run `harness\tools\sync_harness.ps1` in each active mod repo
-  (sibling folders `..\stalker2-immersive-*`).
-- Keep everything generic: no mod-specific history (that goes in the mod's `zonekit/README.md`), no machine-specific
-  paths outside `harness/config.json` defaults.
-- The repo is public: nothing private (credentials, emails, personal files) in docs, tools or commit messages.
-- Root `README.md` / `CLAUDE.md` / `.gitignore` belong to this repo only; mods get theirs from `harness/templates/`.
+Repo `noahsemus/stalker2-immersive-reloading`, Zone Kit plugin `ImmersiveReloading` (`/ImmersiveReloading/`), asset prefix `ImmReload`. Created from the
+harness on 2026-09-30. The shared rules, tester workflow, pipeline and game knowledge are in `harness/` (imported
+above); this file holds only what is specific to this mod.
+
+## Current state (one line per checkpoint / release: date, what changed, what the tester confirmed in game)
+- 2026-09-30: repo created. Next: kit research for PLAN.md, then the tester picks `ImmersiveReloading` in the editor's toolbar
+  mod selector once (GameFeatureData).
+
+## Key facts (verified; cite file:line in the kit)
+- _(fill in as research lands)_
+
+## Assets this mod may override
+- _(none yet; see harness/docs/compatibility.md before adding any)_
+
+## Files
+- `PLAN.md` plan and test matrix · `BUILD.md` every edit asset by asset · `zonekit/README.md` engineering log
+  (what each test showed, dead ends) · `zonekit/ImmersiveReloading/` plugin mirror · `zonekit/tools/` mod-specific generators
+  and classifier lists · `zonekit/builds/` checkpoint and release paks · `mod.json` names and pak suffixes.
+
+## Release (only when the tester says "cut a release")
+Follow `harness/docs/pipeline.md` § Release. Nexus page: _(record the mod id here once it exists)_.

@@ -1,0 +1,18 @@
+{
+    "FileVersion":  3,
+    "Version":  1,
+    "VersionName":  "",
+    "CreatedByURL":  "",
+    "DocsURL":  "",
+    "MarketplaceURL":  "",
+    "SupportURL":  "",
+    "FriendlyName":  "ImmersiveReloading",
+    "Description":  "Sprint and reload at the same time, with an optional reload-speed setting.",
+    "Category":  "Game Features",
+    "CreatedBy":  "noahsemus",
+    "EnabledByDefault":  true,
+    "CanContainContent":  true,
+    "ExplicitlyLoaded":  true,
+    "BuiltInInitialFeatureState":  "Registered",
+    "Mod":  true
+}
