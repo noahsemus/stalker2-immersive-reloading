@@ -21,6 +21,7 @@ if (Test-Path $dest) { throw "$dest already exists" }
 $harnessSrc = if (Test-Path "$Repo\.harness-sync") { $Cfg.harness_remote_url } else { $Repo }
 git clone -q $harnessSrc $dest; if ($LASTEXITCODE) { throw "clone failed" }
 Push-Location $dest
+$ok = $false
 try {
     git remote rename origin harness
     git remote set-url harness $Cfg.harness_remote_url
@@ -49,6 +50,7 @@ try {
     if (-not $NoKit) {
         $plug = "$Kit\Stalker2\Mods\$Name"
         if (-not (Test-Path "$plug\$Name.uplugin")) {
+            Wait-UatFree
             Write-Host "Creating the Zone Kit plugin (GSCCreatePlainMod) ..."
             & "$Kit\Engine\Build\BatchFiles\RunUAT.bat" GSCCreatePlainMod "-Project=$Uproject" "-ModName=$Name" *> "$env:TEMP\${Name}_create.log"
             if (-not (Test-Path "$plug\$Name.uplugin")) { throw "plugin not created; see $env:TEMP\${Name}_create.log" }
@@ -68,8 +70,12 @@ try {
         $vis = if ($Private) { "--private" } else { "--public" }
         gh repo create "$($Cfg.github_owner)/$here" $vis --description $Description --source . --remote origin --push
     }
+    $ok = $true
     Write-Host "Created $dest"
     if (-not $NoKit) {
         Write-Host "Tester step: restart the Zone Kit editor, then pick '$Name' in the toolbar mod selector once (creates the GameFeatureData and mounts the plugin). Then run mirror_from_kit.ps1."
     }
-} finally { Pop-Location }
+} finally {
+    Pop-Location
+    if (-not $ok -and -not (Test-Path "$dest\.gitefsemotes\origin")) { Remove-Item $dest -Recurse -Force; Write-Host "Failed; removed the partial $dest" }
+}

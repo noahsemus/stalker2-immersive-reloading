@@ -57,6 +57,8 @@ for a stock `UnrealEditor-Cmd.exe`), `-TargetPlatform=Win64 -nocompile -nocompil
 stay open; wait ~10 s after the tester's save. Output under
 `<kit>\Stalker2\SavedMods\Staged\<Mod>\Windows\{OverrideContent,NewContent}\Windows\Stalker2\Mods\<Mod>\Content\Paks\Windows\`.
 Then it waits for the game to exit and runs `install_paktest.ps1`.
+UAT runs **one instance per machine**: a second cook or `CreatePlainMod` fails at once ("A conflicting instance of
+AutomationTool is already running"), e.g. while another mod's session is cooking. The tools wait (`Wait-UatFree`).
 
 **Mount order**: priority = 3 + 100 × (N+1) for a `_N_P` file suffix; plain `_P` = 103; kit names = 3.
 | Name | Order | Use |

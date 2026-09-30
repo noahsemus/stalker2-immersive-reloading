@@ -34,3 +34,11 @@ function Get-Priority([string]$key, [int]$default) {
     if ($ModCfg -and $ModCfg.PSObject.Properties[$key]) { return [int]$ModCfg.$key }
     return $default
 }
+
+# UAT (RunUAT / AutomationTool) runs one instance per machine: a second cook or CreatePlainMod fails at once with
+# "A conflicting instance of AutomationTool is already running". Another session may be cooking; wait for it.
+function Wait-UatFree {
+    while (Get-CimInstance Win32_Process -Filter "Name='dotnet.exe'" | Where-Object { $_.CommandLine -match 'AutomationTool' }) {
+        Write-Host "Another AutomationTool (cook) is running - waiting..."; Start-Sleep -Seconds 15
+    }
+}

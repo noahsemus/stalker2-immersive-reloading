@@ -21,6 +21,7 @@ $both = $ovrList | Where-Object { $_ -and ($newList -contains $_) }
 if ($both) { Write-Host "WARNING: listed in BOTH classifier lists (cooked into neither): $($both -join ', ')" }
 
 $log = "$env:TEMP\${Mod}_cook.log"
+Wait-UatFree
 Write-Host "Cooking $Mod (log: $log) ..."
 & "$Kit\Engine\Build\BatchFiles\RunUAT.bat" GSCCookMod "-Project=$Uproject" "-PluginPath=$Kit\Stalker2\Mods\$Mod\$Mod.uplugin" "-PackageClassifierOutputDir=$kitCls" "-UnrealExe=$EditorCmd" -TargetPlatform=Win64 -nocompile -nocompileuat *> $log
 if ($LASTEXITCODE -ne 0) { Write-Host "COOK FAILED (exit $LASTEXITCODE). See $log"; exit 1 }
