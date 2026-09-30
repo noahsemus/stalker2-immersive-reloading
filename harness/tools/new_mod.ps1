@@ -78,6 +78,4 @@ try {
 } finally {
     Pop-Location
     if (-not $ok -and -not (git -C $dest remote | Select-String -Quiet '^origin$')) { Remove-Item $dest -Recurse -Force; Write-Host "Failed; removed the partial $dest" }
-efs
-emotes\origin")) { Remove-Item $dest -Recurse -Force; Write-Host "Failed; removed the partial $dest" }
 }
